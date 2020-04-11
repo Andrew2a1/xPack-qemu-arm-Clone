@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"osdep.h": "c",
+			"glib-compat.h": "c",
+			"arm.h": "c",
+			"svd.h": "c",
+			"cpu.h": "c",
+			"button-reset.h": "c",
+			"lcd.h": "c",
+			"mcus.h": "c",
+			"gpio-led.h": "c",
+			"board.h": "c"
+		}
+	}
+}
