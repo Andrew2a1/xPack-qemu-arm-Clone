@@ -370,10 +370,7 @@ static void stm32f429i_discovery_board_init_callback(MachineState *machine)
     gpio_led_create_from_info(peripheral, stm32f429i_discovery_leds_info,
             board_graphic_context);
 
-    if (board_graphic_context != NULL) {
-        stm32f429i_discovery_graphic_lcd.pixels = malloc(stm32f429i_discovery_graphic_lcd.res_x *
-                                                        stm32f429i_discovery_graphic_lcd.res_y * 4);
-        
+    if (board_graphic_context != NULL) { 
         // Create board buttons.
         button_reset_create_from_info(peripheral,
                 &stm32f429i_discovery_button_reset_info, board_graphic_context);
