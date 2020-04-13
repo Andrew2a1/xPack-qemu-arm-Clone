@@ -23,6 +23,7 @@
 #include <hw/cortexm/button-gpio.h>
 #include <hw/cortexm/button-reset.h>
 #include <hw/cortexm/helper.h>
+#include <hw/cortexm/graphic-lcd.h>
 
 /*
  * This file defines several STM32 boards.
@@ -333,6 +334,18 @@ static ButtonResetInfo stm32f429i_discovery_button_reset_info = {
 /**/
 };
 
+static GraphicLCDInfo stm32f429i_discovery_graphic_lcd = {
+    .name = "graphic-lcd",
+    .x = 73,
+    .y = 112,
+    .w = 357,
+    .h = 256,
+    .res_x = 320,
+    .res_y = 240,
+    .pixels = NULL,
+/**/
+};
+
 static void stm32f429i_discovery_board_init_callback(MachineState *machine)
 {
     CortexMBoardState *board = CORTEXM_BOARD_STATE(machine);
@@ -358,11 +371,16 @@ static void stm32f429i_discovery_board_init_callback(MachineState *machine)
             board_graphic_context);
 
     if (board_graphic_context != NULL) {
+        stm32f429i_discovery_graphic_lcd.pixels = malloc(stm32f429i_discovery_graphic_lcd.res_x *
+                                                        stm32f429i_discovery_graphic_lcd.res_y * 4);
+        
         // Create board buttons.
         button_reset_create_from_info(peripheral,
                 &stm32f429i_discovery_button_reset_info, board_graphic_context);
         button_gpio_create_from_info(peripheral,
                 stm32f429i_discovery_buttons_user_info, board_graphic_context);
+        graphic_lcd_create_from_info(peripheral,
+                 &stm32f429i_discovery_graphic_lcd, board_graphic_context);
     }
 }
 

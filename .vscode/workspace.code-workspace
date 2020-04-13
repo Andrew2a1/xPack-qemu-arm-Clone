@@ -15,7 +15,15 @@
 			"lcd.h": "c",
 			"mcus.h": "c",
 			"gpio-led.h": "c",
-			"board.h": "c"
+			"board.h": "c",
+			"graphic.h": "c",
+			"graphic-lcd.h": "c",
+			"random": "c",
+			"typedefs.h": "c",
+			"sysemu.h": "c",
+			"limits": "cpp",
+			"cstddef": "cpp",
+			"object.h": "c"
 		}
 	}
 }

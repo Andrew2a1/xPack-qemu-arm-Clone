@@ -4,6 +4,7 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
+
     // macOS LLDB configurations
     {
       "name": "(lldb) Launch qemu --help",
@@ -143,9 +144,9 @@
         "--verbose",
         "--verbose",
         "--board",
-        "STM32F4-Discovery",
+        "STM32F429I-Discovery",
         "--mcu",
-        "STM32F407VG",
+        "STM32F429ZI",
         "-d",
         "unimp,guest_errors",
         "--image",

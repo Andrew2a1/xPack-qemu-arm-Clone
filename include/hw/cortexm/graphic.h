@@ -108,6 +108,7 @@ enum {
     GRAPHIC_EVENT_BOARD_INIT,
     GRAPHIC_EVENT_LED_INIT,
     GRAPHIC_EVENT_LED_TURN,
+    GRAPHIC_EVENT_LCD_RELOAD
 };
 
 // ----------------------------------------------------------------------------

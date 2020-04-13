@@ -20,6 +20,7 @@ obj-$(CONFIG_GNU_MCU_ECLIPSE) += gpio-led.o
 obj-$(CONFIG_GNU_MCU_ECLIPSE) += button.o 
 obj-$(CONFIG_GNU_MCU_ECLIPSE) += button-gpio.o 
 obj-$(CONFIG_GNU_MCU_ECLIPSE) += button-reset.o
+obj-$(CONFIG_GNU_MCU_ECLIPSE) += graphic-lcd.o
 
 obj-$(CONFIG_STM32) += stm32/
 obj-$(CONFIG_KINETIS) += kinetis/

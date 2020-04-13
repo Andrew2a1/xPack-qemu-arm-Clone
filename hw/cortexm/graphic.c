@@ -23,6 +23,7 @@
 
 #include <hw/cortexm/gpio-led.h>
 #include <hw/cortexm/button.h>
+#include <hw/cortexm/graphic-lcd.h>
 
 #include "qemu/timer.h"
 #include "qemu/error-report.h"
@@ -43,6 +44,8 @@ static void cortexm_graphic_led_init_graphic_context(
 
 static void cortexm_graphic_led_turn(BoardGraphicContext *board_graphic_context,
         LEDGraphicContext *led_graphic_context, bool is_on);
+
+static void cortexm_graphic_reload_lcd(GraphicLCD *graphic_lcd);
 
 static void cortexm_graphic_process_mouse_motion(void);
 
@@ -163,6 +166,10 @@ static void cortexm_graphic_process_event(SDL_Event* event)
 
             cortexm_graphic_led_turn(state->board_graphic_context,
                     &(state->led_graphic_context), is_on);
+            break;
+
+        case GRAPHIC_EVENT_LCD_RELOAD:
+            cortexm_graphic_reload_lcd(GRAPHIC_LCD_STATE(event->user.data1));
             break;
 
         case GRAPHIC_EVENT_QUIT:
@@ -714,6 +721,28 @@ static void cortexm_graphic_led_turn(BoardGraphicContext *board_graphic_context,
 #endif
 
 #endif /* defined(CONFIG_SDL) */
+}
+
+static void cortexm_graphic_reload_lcd(GraphicLCD *graphic_lcd)
+{
+    if (graphic_lcd->lcd_texture == NULL)
+    {
+        graphic_lcd->lcd_texture = SDL_CreateTexture(graphic_lcd->graphic_context->renderer,
+                                                     GRAPHIC_LCD_PIXEL_FORMAT, SDL_TEXTUREACCESS_STATIC,
+                                                     graphic_lcd->real_size.w, graphic_lcd->real_size.h);
+    }
+
+    SDL_UpdateTexture(graphic_lcd->lcd_texture,
+                      NULL,
+                      graphic_lcd->pixels,
+                      GRAPHIC_LCD_PIXEL_SIZE * graphic_lcd->real_size.w);
+
+    SDL_RenderCopy(board_graphic_context->renderer,
+                   graphic_lcd->lcd_texture,
+                   NULL,
+                   &(graphic_lcd->texture_size));
+
+    SDL_RenderPresent(board_graphic_context->renderer);
 }
 
 // ----------------------------------------------------------------------------
