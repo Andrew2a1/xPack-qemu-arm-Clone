@@ -12,6 +12,7 @@
  */
 
 #include "qemu/osdep.h"
+#include <sys/sysmacros.h>
 #include <sys/ioctl.h>
 #include <sys/wait.h>
 #include <dirent.h>
