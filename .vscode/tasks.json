@@ -39,13 +39,11 @@
       }
     },
     {
-      "label": "qemu: wsl build",
+      "label": "qemu: win build",
       "type": "shell",
-      "command": "wsl",
+      "command": "bash",
       "args": [
-        "bash",
         "~/Downloads/qemu-arm-xpack.git/scripts/build-native.sh",
-        "--debug",
         "--develop",
         "--win"
       ],
