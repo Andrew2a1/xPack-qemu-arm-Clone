@@ -76,11 +76,22 @@ Object *graphic_lcd_create_from_info(Object *parent, GraphicLCDInfo *info,
     graphic_lcd_init_memory(lcd, graphic_lcd->pixels, LCD_BUFFER_SIZE);
     graphic_lcd_load_rect_info(graphic_lcd, info);
 
+    cortexm_graphic_enqueue_event(GRAPHIC_EVENT_LCD_INIT, graphic_lcd, NULL);
+    return lcd;
+}
+
+void graphic_lcd_init_graphics(GraphicLCD *state)
+{
+    if (state->graphic_context)
+    {
+        state->lcd_texture = SDL_CreateTexture(state->graphic_context->renderer,
+                                                     GRAPHIC_LCD_PIXEL_FORMAT, SDL_TEXTUREACCESS_STATIC,
+                                                     state->real_size.w, state->real_size.h);
+    }
+
     SDL_AddTimer(LCD_UPDATE_TIME_MS,
                  graphic_lcd_reload_callback,
-                 graphic_lcd);
-
-    return lcd;
+                 state);
 }
 
 void graphic_lcd_reload(GraphicLCD *state)

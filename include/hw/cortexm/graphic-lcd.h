@@ -75,7 +75,8 @@ typedef struct GraphicLCD {
 
 Object *graphic_lcd_create_from_info(Object *parent, GraphicLCDInfo *info,
         BoardGraphicContext *graphic_context);
-        
+
+void graphic_lcd_init_graphics(GraphicLCD *state);
 void graphic_lcd_reload(GraphicLCD *state);
 uint32_t graphic_lcd_reload_callback(uint32_t interval, void *param);
 

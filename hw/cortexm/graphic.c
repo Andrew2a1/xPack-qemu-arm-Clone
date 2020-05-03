@@ -160,6 +160,10 @@ static void cortexm_graphic_process_event(SDL_Event* event)
             }
             break;
 
+        case GRAPHIC_EVENT_LCD_INIT:
+            graphic_lcd_init_graphics(GRAPHIC_LCD_STATE(event->user.data1));
+            break;
+
         case GRAPHIC_EVENT_LED_TURN:
             state = (GPIOLEDState *) event->user.data1;
             is_on = (bool) event->user.data2;
@@ -728,13 +732,6 @@ static void cortexm_graphic_led_turn(BoardGraphicContext *board_graphic_context,
 
 static void cortexm_graphic_reload_lcd(GraphicLCD *graphic_lcd)
 {
-    if (graphic_lcd->lcd_texture == NULL)
-    {
-        graphic_lcd->lcd_texture = SDL_CreateTexture(graphic_lcd->graphic_context->renderer,
-                                                     GRAPHIC_LCD_PIXEL_FORMAT, SDL_TEXTUREACCESS_STATIC,
-                                                     graphic_lcd->real_size.w, graphic_lcd->real_size.h);
-    }
-
     SDL_UpdateTexture(graphic_lcd->lcd_texture,
                       NULL,
                       graphic_lcd->pixels,
