@@ -710,9 +710,12 @@ static void cortexm_graphic_led_turn(BoardGraphicContext *board_graphic_context,
 #if defined(CONFIG_SDLABI_2_0)
     SDL_UpdateTexture(board_graphic_context->texture,
             &(led_graphic_context->rectangle), crop->pixels, crop->pitch);
+
     SDL_RenderCopy(board_graphic_context->renderer,
             board_graphic_context->texture,
-            NULL, NULL);
+            &(led_graphic_context->rectangle),
+            &(led_graphic_context->rectangle));
+
     SDL_RenderPresent(board_graphic_context->renderer);
 #elif defined(CONFIG_SDLABI_1_2)
     SDL_BlitSurface(crop, NULL, board_graphic_context->surface,

@@ -24,7 +24,6 @@
 #include "qapi/error.h"
 
 #define LCD_MEMORY_ADDR 0xD0000000
-#define LCD_UPDATE_TIME_MS 20
 #define LCD_BUFFER_SIZE 1024UL*1024UL
 
 static void graphic_lcd_init_memory(Object *parent, void *lcd_mem_buffer, uint64_t mem_size)
@@ -94,7 +93,6 @@ void graphic_lcd_reload(GraphicLCD *state)
 uint32_t graphic_lcd_reload_callback(uint32_t interval, void *param)
 {
     graphic_lcd_reload(param);
-    SDL_AddTimer(LCD_UPDATE_TIME_MS, graphic_lcd_reload_callback, param);
     return interval;
 }
 
